@@ -17,4 +17,4 @@ B.rank
 
 #how to run sagemath:
 # ./sage
-# %runfile mtfile.sage
+# %runfile myfile.sage
