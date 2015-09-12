@@ -1,0 +1,66 @@
+from sage.all import *
+length=raw_imput("Give length of linear code")
+dimention=raw_input("Give the dimention")
+FF=raw_imput("Give the finite field in which you want to work in")
+C = codes.ReedSolomonCode(length,dimention,GF(FF))
+quit=False
+decide=""
+print "To see the matrix, press S, to Find a Value press FV, to find a spot value press FSV, to Decode a word press D,to quit press Q"
+while quit==False:
+    decide=raw_input()
+    if decide=="S":
+        __SeeTheMatrix__(C)
+    elif decide=="FV":
+        __FindAValue__(word)
+    elif decide=="FSP":
+        n=raw_input("Give a spot")
+        __FindSpotValue___(n)
+    elif decide=="D":
+        __DecodeWord__(word)
+    elif decide=="Q":
+        quit=True
+    else:
+        print "Give another imput"
+
+
+def __SeeTheMatrix__(C):
+    for value in C:
+        output=str(value)
+        print output
+
+
+def __FindAValue__(word):
+    CodedWord=CodeWord(word)
+    i=1
+    ThereIs=False
+    for value in C:
+        if(value==CodedWord):
+            print "This word exists and it is in position %s" % (i)
+            ThereIs=True
+    if ThereIs==False:
+        print "the word was not found"
+
+
+def __FindSpotValue___(n):
+    ThereIs=False
+    i=1
+    for value in C:
+        if i==n:
+            print value
+            ThereIs=True
+    if ThereIs==False:
+        print "There is no such spot"
+
+
+def __DecodeWord__(word):
+    CodedWord=CodeWord(word)
+    C.decode(CodedWord)
+    
+
+def CodeWord(word):
+    CodedWord="[("
+    for letter in word:
+        CodedWord = ''.join((CodedWord,letter,','))
+    CodedWord = CodedWord[:-1]
+    CodedWord = ''.join((CodedWord,')]'))
+    return CodedWord
